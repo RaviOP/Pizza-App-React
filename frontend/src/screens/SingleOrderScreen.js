@@ -1,13 +1,10 @@
 import React, { useEffect, useRef } from "react";
-// import { io } from "socket.io-client";
-import { toast, Toaster } from "react-hot-toast";
-import moment from "moment";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import { useSelector, useDispatch } from "react-redux";
-import { getOrderDetails } from "../actions/orderActions";
-
-// const socket = io("http://localhost:5000");
+import { Toaster } from 'react-hot-toast';
+import moment from 'moment';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOrderDetails } from '../actions/orderActions';
 
 const SingleOrderScreen = ({ match }) => {
 	const id = match.params.id;
@@ -24,24 +21,24 @@ const SingleOrderScreen = ({ match }) => {
 
 	const updateOrder = (recievedOrder) => {
 		let statuses = [PLACED, CONFIRMED, PREPARED, DELIVERED, PAID, COMPLETED];
-		let time = document.createElement("small");
+		let time = document.createElement('small');
 		statuses.forEach((status) => {
-			status.current.classList.remove("step-completed");
-			status.current.classList.remove("current");
+			status.current.classList.remove('step-completed');
+			status.current.classList.remove('current');
 		});
 		let stepCompleted = true;
 		statuses.forEach((status) => {
 			if (status) {
 				let dataProperty = status.current.dataset.status;
 				if (stepCompleted) {
-					status.current.classList.add("step-completed");
+					status.current.classList.add('step-completed');
 				}
 				if (dataProperty === recievedOrder.status) {
 					stepCompleted = false;
-					time.innerText = moment(recievedOrder.updatedAt).format("hh:mm a");
+					time.innerText = moment(recievedOrder.updatedAt).format('lll');
 					status.current.appendChild(time);
 					if (status.current.nextElementSibling) {
-						status.current.nextElementSibling.classList.add("current");
+						status.current.nextElementSibling.classList.add('current');
 					}
 				}
 			}
@@ -49,23 +46,14 @@ const SingleOrderScreen = ({ match }) => {
 	};
 
 	useEffect(() => {
-		if (order && order.status) {
+		dispatch(getOrderDetails(id));
+	}, [dispatch, id]);
+
+	useEffect(() => {
+		if (order) {
 			updateOrder(order);
-			// socket.emit("join", `Order_${order._id}`);
-			// socket.on("OrderUpdated", (data) => {
-			// 	const updatedOrder = { ...order };
-			// 	let currentTime = new Date().getTime();
-			// 	updatedOrder.updatedAt = "" + currentTime;
-			// 	updatedOrder.status = data.status;
-			// 	toast(`Order Status Updated`, {
-			// 		duration: 2000,
-			// 	});
-			// 	this.statusUpdate(updatedOrder);
-			// });
-		} else {
-			dispatch(getOrderDetails(id));
 		}
-	}, [dispatch, id, order]);
+	}, [order]);
 
 	return (
 		<div className='profile-body'>

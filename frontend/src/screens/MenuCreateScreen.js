@@ -11,13 +11,12 @@ import Loader from "../components/Loader";
 
 const MenuCreateScreen = ({ history }) => {
 	const inputFile = useRef();
-
-	const [name, setName] = useState("");
-	const [size, setSize] = useState("");
-	const [price, setPrice] = useState("");
-	const [image, setImage] = useState("");
-	const [file, setFile] = useState("");
-	const [message, setMessage] = useState("");
+	const [name, setName] = useState('');
+	const [size, setSize] = useState('');
+	const [price, setPrice] = useState('');
+	const [image, setImage] = useState('');
+	const [file, setFile] = useState('');
+	const [message, setMessage] = useState('');
 
 	let dispatch = useDispatch();
 
@@ -27,7 +26,7 @@ const MenuCreateScreen = ({ history }) => {
 	useEffect(() => {
 		if (success) {
 			dispatch({ type: MENU_CREATE_RESET });
-			history.push("/admin/menulist");
+			history.push('/admin/menulist');
 		}
 	}, [success, dispatch, history]);
 
@@ -44,10 +43,10 @@ const MenuCreateScreen = ({ history }) => {
 
 	let submitHandler = (e) => {
 		e.preventDefault();
-		if (name !== "" && size !== "" && price !== "" && file !== "") {
+		if (name !== '' && size !== '' && price !== '' && file !== '') {
 			dispatch(createMenuItem(name, size, price, file));
 		} else {
-			setMessage("All Fields are Required");
+			setMessage('All Fields are Required');
 		}
 	};
 
@@ -75,9 +74,9 @@ const MenuCreateScreen = ({ history }) => {
 								<div className='text-center'>
 									<Image
 										src={image}
-										alt={"Pizza"}
+										alt={'Pizza'}
 										fluid
-										style={{ maxWidth: "8rem" }}
+										style={{ maxWidth: '8rem' }}
 									/>
 								</div>
 							)}
@@ -85,7 +84,7 @@ const MenuCreateScreen = ({ history }) => {
 								<input
 									type='file'
 									ref={inputFile}
-									style={{ display: "none" }}
+									style={{ display: 'none' }}
 									onChange={imagePicked}
 								/>
 								<button

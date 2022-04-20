@@ -41,5 +41,7 @@ export const createShippingDetail = async (req, res) => {
 			await shippingDetail.save();
 			res.status(201).send(shippingDetail);
 		}
-	} catch (error) {}
+	} catch (error) {
+		res.status(500).send({ message: error.message });
+	}
 };

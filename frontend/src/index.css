@@ -369,6 +369,8 @@ h1 {
 	margin: 0.5rem;
 	background-color: white;
 	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
 	box-shadow: 0px 1px 30px 5px rgba(187, 187, 187, 0.57);
 	-webkit-box-shadow: 0px 1px 30px 5x rgba(187, 187, 187, 0.57);
 	-moz-box-shadow: 0px 1px 30px 5x rgba(187, 187, 187, 0.57);
@@ -384,6 +386,9 @@ h1 {
 
 .admin-card-body {
 	padding: 1rem 1rem;
+	flex-grow: 1;
+	align-content: center;
+	justify-content: center;
 }
 
 .admin-card-footer {
